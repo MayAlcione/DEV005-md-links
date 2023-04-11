@@ -1,6 +1,39 @@
 #!/usr/bin/env node
+const mdlinks = (path, objeto) => {
+  return new Promise((resolve, reject) => {
+    if (objeto.validate === true) {
+      resolve("te ganaste el objesto con los links validados")
+    }
+    else {
+      resolve("te ganaste solo el objeto")
+    }
+  })
+}
 
-const { program } = require('commander');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*const { program } = require('commander');
 const mdLinks = require('./md-links');
 const { processCliArgs } = require('./cli');
 const pkg = require('./package.json');
@@ -49,8 +82,8 @@ program
           reject(err);
         });
     });
-  });
+  });*/
+
+/*module.exports = () => {
   
-  module.exports = () => {
-    // ...
-  };
+};*/
