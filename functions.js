@@ -1,7 +1,35 @@
 
 const fs = require ('fs');
 const MarkdownIt = require ('markdown-it');
-const fetch = require ('node-fetch');
+// const fetch = require ('node-fetch');
+const path = require('path');
+
+function obtenerRutasArchivos(pathUser) {
+  const stats = fs.statSync
+  let arrayPath = []
+  if(stats(pathUser).isFile() && path.extname(pathUser)==='.md'){
+    arrayPath.push(pathUser)
+  } else if(stats(pathUser).isDirectory()) {
+   // console.log('la ruta es de un directorio')
+    const elements = fs.readdirSync(pathUser)
+    //console.log('ver elemntos dentro de directorio: ', elements)
+    elements.forEach((element)=>{
+     // console.log('cada elemnto: ', element)
+      let newPath = path.join(pathUser, element)
+     //console.log('nueva ruta: ', newPath)
+      if(stats(newPath).isFile() && path.extname(newPath)==='.md'){
+        arrayPath.push(newPath)
+      }
+      if(stats(newPath).isDirectory()){
+        arrayPath = arrayPath.concat(obtenerRutasArchivos(newPath))
+      }
+    })
+  } else {
+   // console.log('es otro archivo distinto a md');
+  }
+  return arrayPath
+}
+// console.log('VER RESULTADO FINAL: ', obtenerRutasArchivos('./pruebaCarpeta'))
 
 function validarEnlaces(enlaces, validate, followRedirects) {
   const promises = enlaces.map(enlace => {
@@ -24,22 +52,27 @@ function validarEnlaces(enlaces, validate, followRedirects) {
 
 function obtenerEnlacesArchivos(rutasArchivos) {
   const enlaces = [];
-  rutasArchivos.forEach(rutaArchivo => {
+  rutasArchivos.forEach(rutaArchivo => {    
     const data = fs.readFileSync(rutaArchivo, 'utf8');
+    console.log('data leída: ', data);
     const md = new MarkdownIt();
     const tokens = md.parse(data, {});
-    const links = tokens.filter(token => token.type === 'link_open')
+    console.log('tokens: ', tokens);
+    const links = tokens.filter(token => token.type === 'inline' || token.type === 'link_open')
       .map(token => {
-        const href = token.attrs.find(attr => attr[0] === 'href')[1];
-        const text = md.renderer.render([token], md.options, {}).trim();
+        let url = token.content.match(/[^!]\[.+?\]\(.+?\)/g)
+        const href = url[0].match(/https*?:([^"')\s]+)/)[0]
+        const text = url[0].match(/\[(.*)\]/)[1]
         return { href, text, file: rutaArchivo };
+        // return url[0]
+    
       });
     enlaces.push(...links);
   });
   return enlaces;
 }
 
-function obtenerEstadisticas(enlaces, archivo) {
+/*function obtenerEstadisticas(enlaces, archivo) {
   const totalEnlaces = enlaces.length;
   const enlacesUnicos = new Set(enlaces.map(enlace => enlace.href)).size;
   const enlacesRotos = enlaces.filter(enlace => enlace.ok === 'fail').length;
@@ -59,9 +92,10 @@ function obtenerEstadisticas(enlaces, archivo) {
     internos: enlacesInternos,
     externos: enlacesExternos
   }
-}
+}*/
 
 module.exports = {
+  obtenerRutasArchivos,
   obtenerEnlacesArchivos,
   validarEnlaces,
 };

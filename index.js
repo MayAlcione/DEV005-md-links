@@ -1,16 +1,28 @@
-#!/usr/bin/env node
-const mdlinks = (path, objeto) => {
+const { obtenerRutasArchivos, obtenerEnlacesArchivos } = require ('./functions.js');
+const process = require('process')
+// console.log('argumentos de la terminal: ', process.argv);
+const routePath = process.argv[2]
+
+const mdlinks = (pathUser, objeto) => {
   return new Promise((resolve, reject) => {
+    const pathMds = obtenerRutasArchivos(pathUser)
+    const arrObj = obtenerEnlacesArchivos(pathMds)
     if (objeto.validate === true) {
       resolve("te ganaste el objesto con los links validados")
     }
     else {
-      resolve("te ganaste solo el objeto")
+      resolve(arrObj)
+      // resolve("te ganaste solo el objeto")
     }
   })
 }
 
 
+mdlinks(routePath, {})
+.then(res=>console.log('resultado mdLinks: ', res))
+.catch(err=>console.error(err))
+
+module.exports = mdlinks;
 
 
 
@@ -33,56 +45,8 @@ const mdlinks = (path, objeto) => {
 
 
 
-/*const { program } = require('commander');
-const mdLinks = require('./md-links');
-const { processCliArgs } = require('./cli');
-const pkg = require('./package.json');
 
-program
-  .version(pkg.version)
-  .description(pkg.description)
-  .arguments('<path>')
-  .option('-v, --validate', 'Valida los enlaces encontrados')
-  .option('-s, --stats', 'Muestra estadísticas de los enlaces encontrados')
-  .option('-r, --recursive', 'Busca enlaces de manera recursiva en los directorios')
-  .action((path, options) => {
-    return new Promise((resolve, reject) => {
-      const { validate, stats, recursive } = options;
-      let links;
-      mdLinks(path, { validate, recursive })
-        .then((links) => {
-          if (stats) {
-            let statsData;
-            try {
-              statsData = mdLinks.stats(links, path);
-            } catch (err) {
-              console.error(`Error al calcular las estadísticas: ${err.message}`);
-              reject(err);
-              return;
-            }
-            console.log(statsData);
-            resolve();
-          } else if (validate) {
-            mdLinks.validate(links)
-              .then((validateData) => {
-                console.log(validateData);
-                resolve();
-              })
-              .catch((err) => {
-                console.error(`Error al validar los enlaces: ${err.message}`);
-                reject(err);
-              });
-          } else {
-            console.log(links);
-            resolve();
-          }
-        })
-        .catch((err) => {
-          console.error(`Error al leer el archivo ${path}: ${err.message}`);
-          reject(err);
-        });
-    });
-  });*/
+
 
 /*module.exports = () => {
   

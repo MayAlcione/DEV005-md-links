@@ -66,7 +66,7 @@ describe('obtenerEnlacesArchivos', () => {
 const mdlinks = require('./md-links');
 
 test('Obtener rutas de archivos', () => {
-  const rutas = mdlinks.obtenerRutasArchivos('./testFolder');
+  const rutas = obtenerRutasArchivos('./testFolder');
   expect(rutas).toEqual(['./testFolder/test1.md', './testFolder/test2.md']);
 });
 
@@ -75,7 +75,7 @@ const mdlinks = require('./md-links');
 
 test('Obtener enlaces de archivos', () => {
   const rutas = ['./testFolder/test1.md', './testFolder/test2.md'];
-  const enlaces = mdlinks.obtenerEnlacesArchivos(rutas);
+  const enlaces = obtenerEnlacesArchivos(rutas);
   expect(enlaces).toEqual([
     { href: 'https://google.com', text: 'Google', file: './testFolder/test1.md' },
     { href: 'https://github.com', text: 'GitHub', file: './testFolder/test1.md' },
