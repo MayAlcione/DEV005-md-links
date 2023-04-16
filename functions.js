@@ -54,10 +54,10 @@ function obtenerEnlacesArchivos(rutasArchivos) {
   const enlaces = [];
   rutasArchivos.forEach(rutaArchivo => {    
     const data = fs.readFileSync(rutaArchivo, 'utf8');
-    console.log('data leída: ', data);
+    //console.log('data leída: ', data);
     const md = new MarkdownIt();
     const tokens = md.parse(data, {});
-    console.log('tokens: ', tokens);
+    //console.log('tokens: ', tokens);
     const links = tokens.filter(token => token.type === 'inline' || token.type === 'link_open')
       .map(token => {
         let url = token.content.match(/[^!]\[.+?\]\(.+?\)/g)
@@ -72,7 +72,7 @@ function obtenerEnlacesArchivos(rutasArchivos) {
   return enlaces;
 }
 
-/*function obtenerEstadisticas(enlaces, archivo) {
+function obtenerEstadisticas(enlaces, archivo) {
   const totalEnlaces = enlaces.length;
   const enlacesUnicos = new Set(enlaces.map(enlace => enlace.href)).size;
   const enlacesRotos = enlaces.filter(enlace => enlace.ok === 'fail').length;
@@ -92,10 +92,12 @@ function obtenerEnlacesArchivos(rutasArchivos) {
     internos: enlacesInternos,
     externos: enlacesExternos
   }
-}*/
+}
 
 module.exports = {
   obtenerRutasArchivos,
-  obtenerEnlacesArchivos,
   validarEnlaces,
+  obtenerEnlacesArchivos,
+
+  obtenerEstadisticas
 };
