@@ -16,7 +16,8 @@
     "jest": "^29.5.0"
   },
   "scripts": {
-    "build": "babel src -d lib"
+    "build": "babel src -d lib",
+    "test": "jest --watch"
   },
   "dependencies": {
     "chalk": "^5.2.0",

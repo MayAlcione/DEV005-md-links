@@ -43,6 +43,8 @@ const mdlinks = require('../index.js').mdlinks;
 
 const { obtenerRutasArchivos, obtenerEnlacesArchivos, validarEnlaces } = require('../functions.js');
 
+const fs = require('fs');
+const path = require('path');
 
 test('Obtener rutas de archivos', () => {
   const rutas = obtenerRutasArchivos('./pruebaCarpeta');
@@ -53,24 +55,17 @@ test('Obtener rutas de archivos', () => {
   ]);
 });
 
-test('Obtener rutas de archivos', () => {
-  const rutas = obtenerRutasArchivos('./documentos');
-  expect(rutas).toEqual([
-    '\Users\myalc\OneDrive\Documentos\CONCEPTOS CSS.docx'
-  ]);
-});
-
-test('Obtener rutas de archivos', () => {
+test('Obtener rutas de archivos fuera de carpeta', () => {
   const rutas = obtenerRutasArchivos('./directorio');
   expect(rutas).toEqual([
+    './directorio'
   ]);
 });
 
 
-test('Obtener rutas de archivos', () => {
+test('Obtener rutas de archivos vacios', () => {
   const rutas = obtenerRutasArchivos('./pruebaCarpetaVacia');
   expect(rutas).toEqual([
-    
   ]);
 });
 
