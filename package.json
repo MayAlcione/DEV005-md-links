@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "md-links",
   "bin": {
-    "md-links": "./index.js"
+    "md-links": "./cli.js"
   },
   "engines": {
     "node": ">=16.x"
@@ -19,8 +19,12 @@
     "build": "babel src -d lib"
   },
   "dependencies": {
+    "chalk": "^5.2.0",
     "cheerio": "^1.0.0-rc.12",
+    "commander": "^10.0.1",
     "markdown-it": "^13.0.1",
+    "marked": "^4.3.0",
+    "md-links": "^0.1.0",
     "node-fetch": "^3.3.1"
   }
 }
