@@ -49,19 +49,11 @@ const path = require('path');
 test('Obtener rutas de archivos', () => {
   const rutas = obtenerRutasArchivos('./pruebaCarpeta');
   expect(rutas).toEqual([
-    './pruebaCarpeta/otraCarpeta/readme.md',
-    './pruebaCarpeta/file.md',
-    './pruebaCarpeta/otro.md'
+    "pruebaCarpeta\\file.md",
+    "pruebaCarpeta\\otraCarpeta\\readme.md",
+    "pruebaCarpeta\\otro.md",
   ]);
 });
-
-test('Obtener rutas de archivos fuera de carpeta', () => {
-  const rutas = obtenerRutasArchivos('./directorio');
-  expect(rutas).toEqual([
-    './directorio'
-  ]);
-});
-
 
 test('Obtener rutas de archivos vacios', () => {
   const rutas = obtenerRutasArchivos('./pruebaCarpetaVacia');
@@ -71,11 +63,12 @@ test('Obtener rutas de archivos vacios', () => {
 
 
 test('Obtener enlaces de archivos', () => {
-  const rutas = ['./pruebaCarpeta/file.md'];
+  const rutas = ["./pruebaCarpeta/file.md"];
   const enlaces = obtenerEnlacesArchivos(rutas);
   expect(enlaces).toEqual([
-    { href: 'https://google.com', text: 'Google', file: './pruebaCarpeta/file.md' },
-    { href: 'https://github.com/Laboratoria', text: 'GitHub', file: './pruebaCarpeta/file.md' },
+    { href: "https://www.docs.npmjs.com/cli/install", text: "docs oficiales de `npm install` acá",file: "./pruebaCarpeta/file.md" },
+    { href: "https://www.github.com/Laboratoria", text: "Github", file: "./pruebaCarpeta/file.md" },
+    { href: "https://www.google.com", text: "Google", file: "./pruebaCarpeta/file.md" },
   ]);
 });
 

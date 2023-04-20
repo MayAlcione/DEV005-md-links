@@ -17,7 +17,7 @@
   },
   "scripts": {
     "build": "babel src -d lib",
-    "test": "jest --watch"
+    "test": "jest --verbose --watch"
   },
   "dependencies": {
     "chalk": "^5.2.0",
