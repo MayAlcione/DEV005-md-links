@@ -2,8 +2,9 @@
   "name": "md-links",
   "version": "0.1.0",
   "description": "md-links",
+  "main":"index.js",
   "bin": {
-    "md-links": "./cli.js"
+    "md-links": "./bin/cli.js"
   },
   "engines": {
     "node": ">=16.x"
@@ -17,7 +18,7 @@
   },
   "scripts": {
     "build": "babel src -d lib",
-    "test": "jest --verbose --watch"
+    "test": "jest --verbose --watch --collect-coverage"
   },
   "dependencies": {
     "chalk": "^5.2.0",

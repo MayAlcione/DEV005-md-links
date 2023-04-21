@@ -29,6 +29,3 @@ Buscar solo los enlaces rotos en todos los archivos markdown en un directorio:
 $ md-links directorio/ --validate --stats
 
 
-Buscar solo los enlaces rotos en todos los archivos markdown en un directorio y mostrar el detalle de cada uno:
-
-$ md-links directorio/ --validate --stats --recursive
