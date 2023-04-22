@@ -9,13 +9,10 @@ Entre los usos más comunes de Markdown se encuentra la elaboración de README f
 Para ofrecer explicaciones más completas, en estos archivos se hace uso de enlaces que dirigen a información externa. Después de un tiempo, puede ser que la página a la que se dirige el enlace ya no exista o haya cambiado de ruta, lo que resulta molesto para el usuario, ya que no encuentra lo que busca. Con esta librería, se resuelve este problema, ya que permite al desarrollador mantener actualizados los enlaces de sus archivos .md.
 
 ## Descripción del módulo
-
 Este módulo es una biblioteca desarrollada en Node.js que permite a los usuarios especificar una ruta de archivo, buscar y analizar archivos en formato Markdown (.md) y verificar los enlaces contenidos en ellos a través de solicitudes HTTP. El resultado de esta validación puede presentarse en forma de estadísticas de enlaces funcionales y rotos, o simplemente mostrar la validación individual de cada enlace. Los usuarios tienen la flexibilidad de elegir qué acción tomar en función de los resultados de la validación.
 
 ## Diagrama de Flujo
-
 Para estructurar y visualizar claramente la solución al problema, se elaboró un diagrama de flujo que describe el funcionamiento de la librería y los diferentes pasos que se llevan a cabo. De esta manera, se estableció un plan detallado para la implementación de la solución, lo que permitió garantizar su efectividad y eficiencia en la resolución del problema planteado.
-
 
 ## Instrucciones de instalación/uso
 Para utilizar esta librería, primero debes asegurarte de tener Node.js instalado en tu ordenador. Luego, puedes instalar la librería a través de NPM utilizando el siguiente comando:
@@ -26,27 +23,6 @@ Una vez instalada, puedes ejecutar la librería en la terminal utilizando el sig
 
 $ md-links [path] [options]
 
-Donde [path] es la ruta del archivo .md o del directorio que contiene archivos .md. Además, puedes incluir los argumentos opcionales [options] para personalizar la salida de la librería. Los argumentos opcionales disponibles son:
-
---validate: verifica la validez de los enlaces encontrados y muestra su estado (OK si está funcionando, FAIL si no lo está).
---stats: muestra estadísticas de los enlaces encontrados, incluyendo el número total de enlaces y el número de enlaces únicos.
---validate --stats: combina ambas opciones anteriores, mostrando la validación de los enlaces y las estadísticas.
-
-
-Diagrama de Flujo
-Para estructurar y visualizar claramente la solución al problema, se elaboró un diagrama de flujo que describe el funcionamiento de la librería y los diferentes pasos que se llevan a cabo. De esta manera, se estableció un plan detallado para la implementación de la solución, lo que permitió garantizar su efectividad y eficiencia en la resolución del problema planteado.
-
-Instrucciones de instalación/uso
-Para utilizar esta librería, primero debes asegurarte de tener Node.js instalado en tu ordenador. Luego, puedes instalar la librería a través de NPM utilizando el siguiente comando:
-
-ruby
-Copy code
-$ npm install mayAlcione-md-links
-Una vez instalada, puedes ejecutar la librería en la terminal utilizando el siguiente formato de comando:
-
-css
-Copy code
-$ md-links [path] [options]
 Donde [path] es la ruta del archivo .md o del directorio que contiene archivos .md. Además, puedes incluir los argumentos opcionales [options] para personalizar la salida de la librería. Los argumentos opcionales disponibles son:
 
 --validate: verifica la validez de los enlaces encontrados y muestra su estado (OK si está funcionando, FAIL si no lo está).
