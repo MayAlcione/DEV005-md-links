@@ -26,11 +26,12 @@ $ md-links [path] [options]
 Donde [path] es la ruta del archivo .md o del directorio que contiene archivos .md. Además, puedes incluir los argumentos opcionales [options] para personalizar la salida de la librería. Los argumentos opcionales disponibles son:
 
 --validate: verifica la validez de los enlaces encontrados y muestra su estado (OK si está funcionando, FAIL si no lo está).
+
 --stats: muestra estadísticas de los enlaces encontrados, incluyendo el número total de enlaces y el número de enlaces únicos.
+
 --validate --stats: combina ambas opciones anteriores, mostrando la validación de los enlaces y las estadísticas.
 
 ## Documentación del API y ejemplos
-
 A continuación, se presentan algunos ejemplos de cómo utilizar la librería:
 
 Buscar todos los enlaces en un archivo markdown:
