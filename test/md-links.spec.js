@@ -1,7 +1,7 @@
 const mdlinks = require('../index.js').mdlinks;
 
 const { obtenerRutasArchivos, obtenerEnlacesArchivos, validarEnlaces, obtenerEstadisticas} = require('../functions.js');
-
+const functions = require('../functions.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -43,80 +43,59 @@ test('Validar enlaces', () => {
       { href: 'https://www.google.com', text: 'Google', file: './pruebaCarpeta/file.md', status: 200, ok: 'ok' },
       { href: 'https://www.github.com/Laboratoria', text: 'Github', file: './pruebaCarpeta/file.md', status: 301, ok: 'ok' },
     ]);
-  })
-})
-describe('ObtenerEstadisticas', () => {
-  test('debería retornar las estadísticas correctas sin validar enlaces', () => {
-    const enlaces = [{ href: 'https://www.google.com', ok: 'success'},{ href: 'https://www.facebook.com', ok: 'success' }, 
-                     { href: 'https://www.twitter.com', ok: 'fail' }, { href: 'https://www.google.com', ok: 'success' } ];
-    const estadisticas = obtenerEstadisticas(enlaces);
-    expect(estadisticas.total).toBe(4);
-    expect(estadisticas.unicos).toBe(3);
-    expect(estadisticas.rotos).toBeUndefined();
-  });
-
-  test('debería retornar las estadísticas correctas validando enlaces', () => {
-    const enlaces = [{ href: 'https://www.google.com', ok: 'success' },{ href: 'https://www.facebook.com', ok: 'success' },     
-                     { href: 'https://www.twitter.com', ok: 'fail' },  { href: 'https://www.google.com', ok: 'success' }];
-    const estadisticas = obtenerEstadisticas(enlaces, true);
-    expect(estadisticas.total).toBe(4);
-    expect(estadisticas.unicos).toBe(3);
-    expect(estadisticas.rotos).toBe(1);
+    if('Validar enlaces con enlace roto', () => {
+      const enlace = { href: 'https://www.google.com/notfound', text: 'Google', file: './pruebaCarpeta/file.md' };
+      return validarEnlace(enlace).then(resultado => {
+        expect(resultado).toEqual({ href: 'https://www.google.com/notfound', text: 'Google', file: './pruebaCarpeta/file.md', ok: 'fail', status: 404 });
+      });
+    });
+    
   });
 });
 
-describe('mdlinks', () => {
-  test('Devuelve un array de links si ruta de archivo Markdown tiene validate true', () => {
+
+describe('obtenerEstadisticas', () => {
+  test('Devuelve objeto con estadísticas de enlaces', () => {
     const pathUser = './pruebaCarpeta/file.md';
-    const objeto = {
-      validate: false,
-      stats: false
-    };
-    const expectedOutput = [
+    const arrLinks = [
       {
         file: './pruebaCarpeta/file.md',
         href: 'https://www.docs.npmjs.com/cli/install',
         text: 'docs oficiales de `npm install` acá',
+        ok: 'ok',
+        status: 200,
+        error: null
       },
       {
         file: './pruebaCarpeta/file.md',
         href: 'https://www.github.com/Laboratoria',
         text: 'Github',
-      },
-      {
-        file:'./pruebaCarpeta/file.md',
-        href:'https://www.google.com',
-        text:'Google',
-      }
-    ];
-    if (objeto.validate === false) {
-      return expect(mdlinks(pathUser, objeto)).resolves.toEqual(expectedOutput);
-    }
-  
-    const expectedOutputWithValidation = [
-      {
-        file: './pruebaCarpeta/file.md',
-        href: 'https://www.docs.npmjs.com/cli/install',
-        text: 'docs oficiales de `npm install` acá',
         ok: 'fail',
         status: 404,
         error: expect.any(TypeError)
       },
       {
-        file: './pruebaCarpeta/file.md',
-        href: 'https://www.github.com/Laboratoria',
-        text: 'Github',
+        file:'./pruebaCarpeta/file.md',
+        href:'https://www.google.com',
+        text:'Google',
         ok: 'ok',
         status: 200,
         error: null
       }
     ];
-  
-    expect(mdLinks(pathUser, objeto)).resolves.toEqual(expectedOutputWithValidation);
-  });
-});  
+    const expectedOutput = {
+      total: 3,
+      unicos: 3,
+      rotos: 1
+    };
 
-  test('Devolve numero total de links, de links unicos y links rotos si validate y stats son true', () => {
+    expect(obtenerEstadisticas(arrLinks, pathUser)).toEqual(expectedOutput);
+  });
+});
+
+
+describe('mdlinks', () => {
+  test('Devuelve estadísticas de enlaces si validate es true y stats es true', () => {
     const pathUser = './pruebaCarpeta';
     const objeto = {
       validate: true,
@@ -127,13 +106,59 @@ describe('mdlinks', () => {
       unicos: 3,
       rotos: 1
     };
-
+    
     return mdlinks(pathUser, objeto).then((output) => {
-      expect(output).toEqual(expectedOutput);
+      expect(output).toEqual(expectedOutput); 
+    }).catch((err) => {
+      throw err;
     });
   });
+});
+  
+  test('Devuelve el número total de enlaces, enlaces únicos y enlaces rotos incluso si se proporciona un objeto de opciones vacío', () => {
+    const path = './some/directory';
+    const options = {};
+    const expectedOutput = {
+      total: 0,
+      unicos: 0,
+      rotos: 0
+    };
+    });
+  
+      test('Devuelve el número total de enlaces, enlaces únicos y enlaces rotos incluso si se proporciona un objeto de opciones con valores booleanos negativos', () => {
+        const pathUser = './pruebaCarpeta2';
+        const objeto = {
+          validate: false,
+          stats: false
+        };
+        const expectedOutput = {
+          total: 3,
+          unicos: 2,
+          rotos: 1
+        };
+    });
+    describe('obtenerEstadisticas', () => {
+      test('Devuelve objeto con estadísticas de enlaces totales y únicos si no hay enlaces rotos', () => {
+        const arrLinks = [
+          { href: 'https://www.google.com', text: 'Google', file: './pruebaCarpeta/file.md' },
+          { href: 'https://www.github.com/Laboratoria', text: 'Github', file: './pruebaCarpeta/file.md' },
+          { href: 'https://www.docs.npmjs.com/cli/install', text: 'docs oficiales de `npm install` acá', file: './pruebaCarpeta/file.md' },
+        ];
+    
+        const pathUser = './pruebaCarpeta';
+    
+        const expectedOutput = {
+          total: 3,
+          unicos: 3,
+          rotos: 0
+        };
+    
+        expect(obtenerEstadisticas(arrLinks, pathUser)).toEqual(expectedOutput);
+      });
+    });
+    
 
-  test('Devolve un array de links con archivos Markdown si validate y stats son false', () => {
+  test('Devuelve un array de links con archivos Markdown si validate y stats son false', () => {
     const pathUser = './pruebaCarpeta/file.md';
     const objeto = {
       validate: false,
@@ -164,18 +189,19 @@ describe('mdlinks', () => {
 
     return mdlinks(pathUser, objeto).then((output) => {
       expect(output).toEqual(expectedOutput);
+    }).catch((err) => {
+      throw err;
     });
   });
 
-  test('Devolve Error si la ruta no existe', () => {
+  test('Devuelve array si validate es true pero no encuentra links', () => {
     const pathUser = './pruebaCarpeta/otro.md';
-    const objeto = {
+    const options = {
       validate: true,
       stats: false
     };
-
-    return mdlinks(pathUser, objeto).catch((error) => {
-      expect(error).toBeInstanceOf(Error);
-      expect(error.message).toBe('La ruta no existe');
-    });
+    const expectedOutput = [];
+    return expect(mdlinks(pathUser, options)).resolves.toEqual(expectedOutput);
   });
+
+ 

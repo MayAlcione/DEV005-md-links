@@ -19,6 +19,8 @@
   },
   "scripts": {
     "build": "babel src -d lib",
+    "eslint": "eslint --ext .js .",
+    "pretest": " npm run eslint ",
     "test": "jest --verbose --watch --collect-coverage"
   },
   "dependencies": {

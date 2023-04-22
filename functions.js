@@ -42,7 +42,7 @@ Si este es el caso, se imprime un mensaje en la consola indicando que es otro ti
 Luego, la función retorna el array arrayPath que contiene las rutas de todos los archivos con extensión .md encontrados en el directorio 
 especificado en pathUser y sus subdirectorios. Si no se encontraron archivos .md, el array estará vacío. */    
   } else {
-    console.log('es otro archivo distinto a md');
+ //   console.log('es otro archivo distinto a md');
   }
   return arrayPath
 }

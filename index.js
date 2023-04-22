@@ -16,22 +16,23 @@ const mdlinks = (pathUser, objeto) => {
 //obtenerEstadisticas: esta función recibe un array de objetos de enlaces y una ruta, y devuelve un objeto con estadísticas sobre los enlaces, incluyendo la cantidad de enlaces totales y la cantidad de enlaces rotos.         
           resolve(obtenerEstadisticas(arrLinks, pathUser))
         }).catch((err) => {
-       reject(err)
+          reject((`Error al procesar los archivos: ${err.message}`));
         })
       } else if (objeto.validate === true) {
         validarEnlaces(arrObj, objeto.validate, true).then((arrLinks) => {
           resolve(arrLinks)
         }).catch((err) => {
-       reject(err)
+        reject(Error(`Error al procesar los archivos: ${err.message}`));
         })
       } else {
         resolve(arrObj)
       }
     } catch (err) {
-      reject(err)
+      reject((`Error al procesar los archivos: ${err.message}`));    
     }
   })
 }
+
 /*La función mdlinks utiliza estas funciones para procesar los archivos Markdown 
 y devolver un array de objetos de enlaces. Si se pasa objeto.validate como verdadero, 
 la función también valida los enlaces y devuelve estadísticas. Luego, la función 

@@ -23,10 +23,9 @@ y enlaces únicos) utilizando el objeto retornado por la función obtenerEstadis
 /*Si no se ha pasado ninguna de las opciones, se imprime por consola una tabla con los enlaces 
 encontrados y su texto correspondiente, utilizando la respuesta retornada por la función mdlinks. */     
   } else {
-      return console.table(response);
+      return console.log(response);
     }
   })
   .catch((err) => console.log(err));
   
 
-  
