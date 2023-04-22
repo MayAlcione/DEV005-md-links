@@ -1,6 +1,6 @@
 const { obtenerRutasArchivos, obtenerEnlacesArchivos, validarEnlaces, obtenerEstadisticas } = require ('./functions.js');
-const process = require('process');
-const routePath = "./pruebaCarpeta"
+//const process = require('process');
+//const routePath = "./pruebaCarpeta"
 
 const mdlinks = (pathUser, objeto) => {
   return new Promise((resolve, reject) => {
