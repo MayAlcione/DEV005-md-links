@@ -18,7 +18,7 @@ Para estructurar y visualizar claramente la solución al problema, se elaboró u
 ## Instrucciones de instalación/uso
 Para utilizar esta librería, primero debes asegurarte de tener Node.js instalado en tu ordenador. Luego, puedes instalar la librería a través de NPM utilizando el siguiente comando:
 
-$ npm install mayAlcione-md-links
+$ npm install md-links
 
 Una vez instalada, puedes ejecutar la librería en la terminal utilizando el siguiente formato de comando:
 
