@@ -13,6 +13,7 @@ Este módulo es una biblioteca desarrollada en Node.js que permite a los usuario
 
 ## Diagrama de Flujo
 Para estructurar y visualizar claramente la solución al problema, se elaboró un diagrama de flujo que describe el funcionamiento de la librería y los diferentes pasos que se llevan a cabo. De esta manera, se estableció un plan detallado para la implementación de la solución, lo que permitió garantizar su efectividad y eficiencia en la resolución del problema planteado.
+[Diagrama](https://drive.google.com/file/d/1tg1s6rj_RO9QhSRwAkPeseSnW5PKntEf/view)
 
 ## Instrucciones de instalación/uso
 Para utilizar esta librería, primero debes asegurarte de tener Node.js instalado en tu ordenador. Luego, puedes instalar la librería a través de NPM utilizando el siguiente comando:
@@ -54,7 +55,7 @@ Buscar solo los enlaces rotos en todos los archivos markdown en un directorio:
 
 $ md-links directorio/ --validate --stats
 
-
+####
 
 
 
